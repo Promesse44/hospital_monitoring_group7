@@ -1,8 +1,8 @@
-Readme file
+README.mdReadme file
 
 Readme file
 
-A brief description on how this work was done.
+A brief description on how this work was done and how it functions.
 
 Task 1: Heart Rate Monitoring Script :The script creates the file that is called heart rate log.txt that runs in the background.Heart rate log.txt record heart beat every one second. It was done by Mbonyumugisha Prince and Gisa Rwema.
 
