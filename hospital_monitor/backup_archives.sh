@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 group_number=7  # Replace with your actual group number
-remote_host="your_remote_host"  # Replace with the actual remote host
+remote_host="172.17.0.3"  # Replace with the actual remote host
 remote_user="your_username"  # Replace with the actual username
 remote_dir="/home/your_directory/"  # Replace with the actual remote directory on the backup server
 
