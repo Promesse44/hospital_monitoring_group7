@@ -1,29 +1,32 @@
 #!/usr/bin/env bash
 
-group_number=7  # Replace with your actual group number
-remote_host="172.17.0.3"  # Replace with the actual remote host
-remote_user="your_username"  # Replace with the actual username
-remote_dir="/home/your_directory/"  # Replace with the actual remote directory on the backup server
+userinfo="84b26794fc7a"
+host="84b26794fc7a.599ec69a.alu-cod.online"
+archdir="archived_logs_group7"
 
-# Create archive directory if it doesn't exist
-archive_dir="archived_logs_group$group_number"
-mkdir -p "$archive_dir"
-
-# Move all archived log files into the archive directory
-if mv heart_rate_log.txt_* "$archive_dir"/; then
-    echo "All archived log files have been moved to $archive_dir/"
+if [ ! -d "$archdir" ]; then
+    mkdir "$archdir"
+    echo "Directory $archdir created."
 else
-    echo "No archived log files found to move."
+    echo "The directory $archdir already exists."
 fi
 
-# Secure backup using SCP (SSH)
-echo "Backing up archived logs to the remote server..."
-scp "$archive_dir"/* "$remote_user@$remote_host:$remote_dir"
+for file in heart_rate_log.txt_*; do
+    if [ -e "$file" ]; then
+        mv "$file" "$archdir"
+        echo "Moved $file to $archdir."
+    else
+        echo "No archived files found to move."
+        break
+    fi
+done
 
-# Check if SCP was successful
+echo "Starting backup to remote server..."
+scp -r "$archdir/" "$userinfo@$host:/home/"
+
 if [ $? -eq 0 ]; then
-    echo "Backup complete. All archived logs are now on the remote server."
+    echo "Backup complete. Archived logs have been copied to the remote server."
 else
-    echo "Backup failed. Please check your SSH credentials or server connection."
+    echo "Backup failed. Please check your SSH connection or credentials."
 fi
 
